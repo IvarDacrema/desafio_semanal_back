@@ -10,8 +10,6 @@ class ProductManager {
     // thumbnail: ruta de imagen-code: codigo identificador
 
     addProduct(title,description,price,thumbnail,code,stock){
-        const controlCode = this.#searchCode(code)
-        console.log(controlCode)
         const product = {
             id: this.#generateId(),
             title,
@@ -23,7 +21,7 @@ class ProductManager {
         }
         if(!title || !description || !price || !thumbnail || !code || !stock){
             console.log(`En el producto ${title}, uno de los campos no fue rellenado`)
-        } else if (controlCode) {
+        } else if (this.#searchCode(code)!=undefined) {
             const product = this.products.find(product=>product.code===code)
             console.log(`${title} ya se encuentra en la lista con el codigo ${product.code}`)
         }  else {
@@ -55,18 +53,17 @@ class ProductManager {
     }
 
     #searchCode(code){
-        return this.products.includes(code)
+        return this.products.find(product=>product.code===code)
     }
 }
 
 const productManager1 = new ProductManager()
 productManager1.addProduct('leche','lacteo de gran calidad',250,1,153645,12)
 productManager1.addProduct('galletas','pasta con chocolate al horno',500,2,155645,52)
-productManager1.addProduct('helado', 'crema fria con diferentes gustos', 100, 5, 76766, 4)
+productManager1.addProduct('helado', 'crema fria con diferentes gustos', 100, 5, 76776, 4)
 productManager1.addProduct('hamburguesas', 'medallon de carne molida', 100, 5, 76767,100)
-productManager1.addProduct('helado', 'crema fria con diferentes gustos', 100, 5, 76766)
+productManager1.addProduct('helado', 'crema fria con diferentes gustos', 100, 5, 76776, 4)
 
 productManager1.getProductById(5)
 
 console.log(productManager1.getProduct());
-
